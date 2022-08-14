@@ -1,0 +1,62 @@
+Create project folder   02_flask_web_app
+
+create website folder   website
+
+create main.py inside project folder 02_flask_web_app
+
+create static and templates folders     static templates
+
+create __init__.py
+        auth.py
+        models.py
+        views.py 
+
+install flask with pip install flask
+    pip isntalls python packages
+
+install flask login with pip install flask-login
+
+install flask sql alchemy with pip install flask-sqlalchemy
+
+go into __init__.py file and add the below code
+    from flask import flask
+
+    def create_app():
+        app = Flask(__name__)
+        app.config['SECRET_KEY'] =''
+        return app
+
+go into main.py file and code 
+    from website importe create_app     #website is a python package since it is inside our app folder. we import create_app which was defined in __init__.py file
+
+     app = create_app()
+
+    if __name__ == '__main__': #only if i RUN this file, not import, will the following line run. This prevents accidental running of main.oy file if it was imported for some reason.
+        app.run(debug=True) #runs the flask application, starts web server. debug=True which means everytime a change is made to code it will automatically rerun the server. this is turned off when in production.
+
+Flask troubleshooting 
+cntl+shift+p
+Python:Select Interpreter
+select version
+
+views.py file
+from flask import Blueprint
+
+views = Blueprint('views', __name__)
+@views.route('/') #decorator
+def home(): #define a function, put decorator above it
+    return "<h1>Test</h1>"
+
+repeat this in auth file but replace views with auth
+
+go to __init__ file 
+import views and auth files and the blueprints created in each
+
+register blueprints
+
+from .views import views #from views file import name of blueprint, views
+    from .auth import auth
+
+    app.register_blueprint(views,url_prefix='/')# all the url stored inside file 
+    app.register_blueprint(auth,url_prefix='/')
+
